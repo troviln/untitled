@@ -4,10 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/templates/enter_form.html" line="27" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b6bed6-c3ac-4fd1-8446-725da573452f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/blog.css" afterPath="$PROJECT_DIR$/static/css/blog.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c5b6bed6-c3ac-4fd1-8446-725da573452f" name="Default" comment="" />
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -644,7 +641,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450969713214</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Проверка 2">
+      <created>1450969906476</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1450969906476</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -657,7 +660,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.49676377" order="6" side_tool="false" content_ui="tabs" />
@@ -698,7 +701,8 @@
     <MESSAGE value="123" />
     <MESSAGE value="готовность" />
     <MESSAGE value="Проверка 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Проверка 1" />
+    <MESSAGE value="Проверка 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Проверка 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
