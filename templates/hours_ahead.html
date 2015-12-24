@@ -1,0 +1,8 @@
+{% extends "skelet.html" %}
+{% block title %}Время в будущем{% endblock %} 
+{% block content %} 
+<p> Через {{ hour_offset }} часов будет {{ next_time }}.</p>
+<hr>
+    <table><tr><td>{{ brr }}</td></tr></table>
+
+{% endblock %} 

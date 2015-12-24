@@ -1,0 +1,6 @@
+{% extends "skelet.html" %}
+{% block title %}Текущее время{% endblock %} 
+{% block content %} 
+<p> Сейчас {{ current_date|cut:","}}.</p>
+<l> Ваш IP: {{ ip_adress }}.</l>
+{% endblock %} 

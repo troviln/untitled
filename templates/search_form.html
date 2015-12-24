@@ -1,0 +1,28 @@
+{% extends "skelet.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    {% if  errors %}
+        <ul>
+         {% for error in errors %}
+            <li>{{ error }}</li>
+         {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="" method="get">
+       <input type="text" name="q"  class="form-control lol" ><br>
+       <input type="submit" value="Search" class="btn btn-success" >
+    </form>
+
+     <p>You searched: <strong>{{ query }}</strong></p>
+        {% if books %}
+         <p>Find {{ books|length }} book{{ books|pluralize }}.</p>
+         <ul>{% for book in books %}
+             <li>{{ book.title }}</li>
+             {% endfor %}
+         </ul>
+         {% else %}
+         <p> Books don't find.</p>
+         {% endif %}
+
+{% endblock %}
