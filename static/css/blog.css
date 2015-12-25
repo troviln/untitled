@@ -1,11 +1,11 @@
 
 h1 a{
-    color: #2bb7fc;
+    color: rgba(0, 0, 0, 0.51);
     font-family: fantasy  ;
 }
 
 body{
-    padding-left: 14px;
+    padding-left: 0px;
 }
 .lol{
     width:300px;
