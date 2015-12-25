@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'^registration/$', 'registration.registr.register'),
     url(r'^login/$', 'registration.registr.login'),
     url(r'^logout/$', 'registration.registr.logout'),
-    url(r'^blog/$', include('blog.urls')),
+    url(r'^blog/', include('blog.urls')),
 ]
