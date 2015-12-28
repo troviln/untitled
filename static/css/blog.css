@@ -1,19 +1,32 @@
+.log {
+    float: right;
+
+}
+
+.reg {
+    width: 50%;
+    height: 50%;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
 
 h1 a{
     color: rgba(0, 0, 0, 0.51);
     font-family: fantasy  ;
 }
 
-body{
-    padding-left: 0px;
-}
 .lol{
     width:300px;
 }
 
 .page-header {
-    background-color: #4585ff;
-    margin-top: 0;
+    background-color: #4682b4;
+    margin-top:0;
     padding: 20px 20px 20px 40px;
 }
 
@@ -47,12 +60,15 @@ h1, h2, h3, h4 {
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #ffffff;
     float: right;
-    font-size: 26pt;
+    font-size: 36pt;
     margin-right: 20px;
 }
 
 .post {
-    margin-bottom: 70px;
+    margin-bottom: 80px;
+    max-width: 770px;
+    text-align: justify;
+
 }
 
 .post h1 a, .post h1 a:visited {

@@ -11,10 +11,10 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect("/hello/")
+            return HttpResponseRedirect("/blog/")
     else:
         form = UserCreationForm()
-    return render(request, "register.html", {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def login(request):
@@ -25,13 +25,13 @@ def login(request):
             if form.get_user():
                 auth.login(request, form.get_user())
                 # Переадресовать на страницу успешного входа,
-                return HttpResponseRedirect("/hello/")
+                return HttpResponseRedirect("/blog/")
     else:
         form = EnterForm()
 
-    return render(request, 'enter_form.html', {'form': form})
+    return render(request, 'registration/enter_form.html', {'form': form})
 
 def logout(request):
     auth.logout(request)
     # Переадресовать на страницу успешного выхода,
-    return HttpResponseRedirect("/hello/")
+    return HttpResponseRedirect("/blog/")

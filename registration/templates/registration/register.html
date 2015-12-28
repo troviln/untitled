@@ -1,0 +1,11 @@
+{% extends 'registration/enter_form.html' %}
+
+{% block title %}<title>New account</title>{% endblock %}
+{% block content %}
+<h1>Create account</h1>
+<form action="" method="post">{% csrf_token %}
+   {{ form.as_ul }}
+   <input type="submit" value="Create account" class="btn btn-success form-control" >
+</form>
+{% endblock %}
+

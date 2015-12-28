@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
 
+{% if user.is_authenticated %}
+<input type="button" value="Logout" class="btn btn-default log" onclick="javascript:window.location='/logout/'" />
+{% else %}
+<input type="button" value="Login" class="btn btn-success log" onclick="javascript:window.location='/login/'" />
+{% endif %}
+
     {% block title %}
     <title>Blog for everything around</title>
     {% endblock %}
@@ -18,7 +24,7 @@
 </head>
 <body>
     <div class="page-header">
-        <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="{% url 'post_new' %}" class="top-menu" ><span class="glyphicon glyphicon-plus"></span></a>
         <a href="{% url "post_draft_list" %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
         <h1><a href="/blog/">Blog for everything around</a></h1>
     </div>
