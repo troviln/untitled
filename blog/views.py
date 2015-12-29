@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404,redirect
 from django.utils import timezone
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 
 
 def post_list(request):
@@ -39,6 +39,7 @@ def post_publish(request, pk):
     return redirect('blog.views.post_detail', pk=pk)
 
 @login_required
+@permission_required('delete_post')
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()

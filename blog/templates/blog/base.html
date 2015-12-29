@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="page-header">
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and perms.blog.add_post %}
         <a href="{% url 'post_new' %}" class="top-menu" title="Create new post"><span class="glyphicon glyphicon-plus"></span></a>
         <a href="{% url "post_draft_list" %}" class="top-menu" title="List of unpublished posts"><span class="glyphicon glyphicon-edit"></span></a>
         {% endif %}

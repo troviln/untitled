@@ -2,7 +2,7 @@
 {% block content %}
                 <div class="post">
                     <div class="date">
-                        {% if user.is_authenticated %}
+                        {% if user.is_authenticated  and perms.blog.delete_post %}
                         <a class="btn btn-default btn-md" href="{% url "post_remove" pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
                         {% endif %}
                         {% if post.published_date %}
@@ -11,7 +11,7 @@
                                 <p>by: {{ post.author }}</p>
                             </div>
                         {% else %}
-                            {% if user.is_authenticated %}
+                            {% if user.is_authenticated and perms.blog.change_post %}
                             <a class="btn btn-default btn-md" href="{% url "post_change" pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
                             <a class="btn btn-default btn-sm" href="{% url "blog.views.post_publish" pk=post.pk %}">Publish</a>
                              {% endif %}
@@ -24,7 +24,7 @@
     <a class="btn btn-default" href="{% url "add_comment_to_post" pk=post.pk %}">Add comment</a>
 
     {% for comment in post.comments.all %}
-    {% if user.is_authenticated or comment.approved_comment %}
+    {% if user.is_authenticated and perms.blog.change_change  or comment.approved_comment %}
     <div class="comment">
         <div class="date">
             {{ comment.created_date }}
