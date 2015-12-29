@@ -1,31 +1,26 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% load staticfiles %}<html lang="en"><head>
     <meta charset="UTF-8">
-
-{% if user.is_authenticated %}
-<input type="button" value="Logout" class="btn btn-default log" onclick="javascript:window.location='/logout/'" />
-{% else %}
-<input type="button" value="Login" class="btn btn-success log" onclick="javascript:window.location='/login/'" />
-{% endif %}
-
     {% block title %}
     <title>Blog for everything around</title>
     {% endblock %}
-
     <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link  href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
     <link  href="{% static 'css/bootstrap-theme.css' %}" rel="stylesheet">
-    <link  href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-    <link  href="{% static 'css/blog.css' %}" rel="stylesheet">
     <link  href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
-
+    <link  href="{% static 'css/blog.css' %}" rel="stylesheet">
+{% if user.is_authenticated %}
+<input type="button" value="Logout" class="btn btn-primary log btn-sm" onclick="javascript:window.location='/logout/'" />
+    <p class="log">Hello, {{ user.username }}&nbsp&nbsp </p>
+{% else %}
+<input type="button" value="Login" class="btn btn-success log btn-sm"  onclick="javascript:window.location='/login/'" />
+{% endif %}
 </head>
 <body>
     <div class="page-header">
-        <a href="{% url 'post_new' %}" class="top-menu" ><span class="glyphicon glyphicon-plus"></span></a>
-        <a href="{% url "post_draft_list" %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'post_new' %}" class="top-menu" title="Create new post"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="{% url "post_draft_list" %}" class="top-menu" title="List of unpublished posts"><span class="glyphicon glyphicon-edit"></span></a>
+        {% endif %}
         <h1><a href="/blog/">Blog for everything around</a></h1>
     </div>
     <div class="content container">
