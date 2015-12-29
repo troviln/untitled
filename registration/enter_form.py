@@ -1,6 +1,7 @@
 __author__ = 'trigger'
 from django import forms
 from django.contrib import auth
+from django.contrib.auth.models import User, Group
 
 class EnterForm(forms.Form):
     username = forms.CharField(max_length=9, label='Username')
@@ -13,7 +14,20 @@ class EnterForm(forms.Form):
             if user is None:
                 raise forms.ValidationError('Please enter the correct username and password')
             self.user = user
+
         return cleaned_data
 
+    def add_group(self):
+        user=self.user
+        if not user.groups.filter(name='blog_user'):
+                user = User.objects.get(username=user.username)
+                user.groups.add()
+
+
     def get_user(self):
+        user = self.user
+        if not user.groups.filter(name='blog_user'):
+                user = User.objects.get(username=user.username)
+                g = Group.objects.get(name='blog_user')
+                g.user_set.add(user)
         return self.user or None
