@@ -19,6 +19,9 @@
                     </div>
                 {% endif %}
                     <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                 {% if post.image %}
+                    <img src="{{ post.image.url }}" >
+                 {% endif %}
                     <p>{{ post.text|linebreaks }}</p>
                 </div>
     <a class="btn btn-default" href="{% url "add_comment_to_post" pk=post.pk %}">Add comment</a>

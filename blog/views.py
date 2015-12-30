@@ -18,7 +18,7 @@ def post_detail(request, pk):
 @permission_required('blog.add_post', login_url='/blog/')
 def post_new(request):
      if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -46,6 +46,8 @@ def post_publish(request, pk):
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
+    post.image.delete(save=False)
+
     return redirect('blog.views.post_list')
 
 @login_required
@@ -53,7 +55,7 @@ def post_remove(request, pk):
 def post_change(request, pk):
     before_edit = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=before_edit)
+        form = PostForm(request.POST, request.FILES, instance=before_edit)
         if form.is_valid():
              post = form.save(commit=False)
              post.author = request.user
