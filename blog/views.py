@@ -50,6 +50,17 @@ def post_remove(request, pk):
 
     return redirect('blog.views.post_list')
 
+
+@login_required
+@permission_required('blog.add_post', login_url='/blog/')
+def post_likes(request, pk):
+
+    post = get_object_or_404(Post, pk=pk)
+    post.likes+=1
+    post.save()
+
+    return redirect('/')
+
 @login_required
 @permission_required('blog.change_post', login_url='/blog/')
 def post_change(request, pk):

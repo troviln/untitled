@@ -23,8 +23,8 @@
                     <img src="{{ post.image.url }}" >
                  {% endif %}
                     <p>{{ post.text|linebreaks }}</p>
-                </div>
-    <a class="btn btn-default" href="{% url "add_comment_to_post" pk=post.pk %}">Add comment</a>
+
+                  <a class="btn btn-default" href="{% url "add_comment_to_post" pk=post.pk %}">Add comment</a>
 
     {% for comment in post.comments.all %}
     {% if user.is_authenticated and perms.blog.change_change or comment.approved_comment %}
@@ -43,4 +43,6 @@
 {% empty %}
     <p>No comments here yet :(</p>
 {% endfor %}
+                </div>
+
 {% endblock %}

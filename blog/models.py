@@ -8,11 +8,14 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     text = models.TextField()
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', height_field=None, width_field=None, max_length=100, blank=True,
+                              null=True)
     created_date = models.DateTimeField(
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
+    likes = models.IntegerField(default=0)
+
 
     def publish(self):
         self.published_date = timezone.now()
