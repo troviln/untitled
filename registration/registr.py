@@ -11,7 +11,11 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            #newuser = auth.authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            #auth.login(request, newuser)
             return HttpResponseRedirect("/login/")
+            #return HttpResponseRedirect("/blog/")
+
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})

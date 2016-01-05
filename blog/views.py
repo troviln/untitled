@@ -1,13 +1,19 @@
+
 from django.shortcuts import render, get_object_or_404,redirect
 from django.utils import timezone
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required,permission_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.http.response import Http404
+from django.core.paginator import Paginator
 
 
-def post_list(request):
+def post_list(request, page_number=1):
+
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    current_page = Paginator(posts,5)
+    return render(request, 'blog/post_list.html', {'post': current_page.page(page_number)})
 
 
 def post_detail(request, pk):
@@ -52,14 +58,31 @@ def post_remove(request, pk):
 
 
 @login_required
-@permission_required('blog.add_post', login_url='/blog/')
+@permission_required('blog.add_post', login_url='/')
 def post_likes(request, pk):
 
-    post = get_object_or_404(Post, pk=pk)
-    post.likes+=1
-    post.save()
+    try:
 
-    return redirect('/')
+        if pk in request.COOKIES :
+            post = get_object_or_404(Post, pk=pk)
+            post.likes -= 1
+            post.save()
+            response = redirect(request.GET.get('next', '/'))
+            response.delete_cookie(pk)
+            return response
+        else:
+            post = get_object_or_404(Post, pk=pk)
+            post.likes += 1
+            post.save()
+            response = redirect(request.GET.get('next', '/'))
+            response.set_cookie(pk, 'like')
+            return response
+    except ObjectDoesNotExist:
+        raise Http404
+
+
+
+
 
 @login_required
 @permission_required('blog.change_post', login_url='/blog/')
