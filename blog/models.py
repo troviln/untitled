@@ -1,5 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from django.db import models
+from embed_video.fields import EmbedVideoField
+
+
 
 
 
@@ -15,6 +19,7 @@ class Post(models.Model):
     published_date = models.DateTimeField(
         blank=True, null=True)
     likes = models.IntegerField(default=0)
+    video = EmbedVideoField(blank=True, null=True)  # same like models.URLField()
 
 
 

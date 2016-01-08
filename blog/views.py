@@ -82,8 +82,6 @@ def post_likes(request, pk):
 
 
 
-
-
 @login_required
 @permission_required('blog.change_post', login_url='/blog/')
 def post_change(request, pk):
@@ -102,6 +100,7 @@ def post_change(request, pk):
     return render(request, 'blog/post_change.html', {'form': form})
 
 
+
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -115,12 +114,14 @@ def add_comment_to_post(request, pk):
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
 
+
 @login_required
 @permission_required('blog.change_comment', login_url='/blog/')
 def comment_approve(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
     return redirect('blog.views.post_detail', pk=comment.post.pk)
+
 
 @login_required
 @permission_required('blog.add_comment', login_url='/blog/')

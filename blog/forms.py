@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from .models import Post,Comment
+from .models import Post, Comment
+from embed_video.admin import AdminVideoMixin
 
 
-class PostForm(forms.ModelForm):
+class PostForm(forms.ModelForm, AdminVideoMixin):
 
     class Meta:
         model = Post
-        fields = ('title', 'image', 'text',)
+        fields = ('title', 'image', 'video', 'text',)
 
 class CommentForm(forms.ModelForm):
 

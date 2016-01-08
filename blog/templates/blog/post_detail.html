@@ -1,28 +1,46 @@
 {% extends 'blog/base.html' %}
+{% load embed_video_tags %}
+{% load staticfiles %}
 {% block content %}
+
                 <div class="post">
                     <div class="date">
+
                         {% if user.is_authenticated  and perms.blog.delete_post %}
                         <a class="btn btn-default btn-md" href="{% url "post_remove" pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+
                         {% endif %}
-                        {% if post.published_date %}
-                            <div class="date">
-                                <p>{{ post.published_date }}</p>
-                                <p>by: {{ post.author }}</p>
-                            </div>
-                        {% else %}
-                            {% if user.is_authenticated and perms.blog.change_post %}
+
+                        {% if user.is_authenticated and perms.blog.change_post %}
                             <a class="btn btn-default btn-md" href="{% url "post_change" pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            <a class="btn btn-default btn-sm" href="{% url "blog.views.post_publish" pk=post.pk %}">Publish</a>
-                             {% endif %}
+
+                            <hr>
+                        {% endif %}
+
+                        {% if post.published_date %}
+                                <p class="shr">{{ post.published_date }}</p>
+                                <p class="shr">by: {{ post.author }}</p>
+                            <hr>
+                        {% else %}
+                            &nbsp&nbsp<a class="btn btn-default btn-sm" href="{% url "blog.views.post_publish" pk=post.pk %}">Publish</a>
+                        {% endif %}
+
+
 
                     </div>
-                {% endif %}
+
                     <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
                  {% if post.image %}
-                    <img src="{{ post.image.url }}" >
+                    <p><img src="{{ post.image.url }}" ></p>
+                 {% endif %}
+                 {% if post.video %}
+                        <p>{% video post.video '640x360' %}</p>
                  {% endif %}
                     <p>{{ post.text|linebreaks }}</p>
+
+                 <p class="heart"><a href="{% url 'post_likes' pk=post.pk %}" ><img src="{% static 'like.png' %}" width="20px" height="20px"></a>{{ post.likes}}</p>
+                  <br>
+                  <hr>
 
                   <a class="btn btn-default" href="{% url "add_comment_to_post" pk=post.pk %}">Add comment</a>
 
@@ -41,7 +59,8 @@
     </div>
     {% endif %}
 {% empty %}
-    <p>No comments here yet :(</p>
+
+    <br><br><br><p>No comments here yet :(</p>
 {% endfor %}
                 </div>
 
