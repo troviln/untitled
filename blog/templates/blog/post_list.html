@@ -18,7 +18,7 @@
                      <br><br>
                     {% endif %}
                     {% if post.image %}
-                        <p><img src="{{ post.image.url }}" ></p>
+                        <p><img src="{{ post.image.url }}" style="max-width:750px;" ></p>
                     {% endif %}
                     {% if post.video %}
                         <p>{% video post.video '640x360' %}</p>
