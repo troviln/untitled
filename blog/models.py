@@ -4,7 +4,11 @@ from django.db import models
 from embed_video.fields import EmbedVideoField
 
 
+class Tag(models.Model):
+    tag = models.CharField(max_length=30, blank=True, null=True)
 
+    def __str__(self):
+        return self.tag
 
 
 
@@ -20,6 +24,7 @@ class Post(models.Model):
         blank=True, null=True)
     likes = models.IntegerField(default=0)
     video = EmbedVideoField(blank=True, null=True)  # same like models.URLField()
+    tags = models.ManyToManyField(Tag)
 
 
 
@@ -46,3 +51,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+
+

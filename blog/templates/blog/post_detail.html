@@ -30,6 +30,13 @@
                     </div>
 
                     <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                    {% if post.tags %}
+                        {%for tags in post.tags.all %}
+                            <a class="btn btn-default btn-xs tags" href="{% url 'post_tag_search' tag=tags %}">{{ tags }}</a>
+                        {% endfor %}
+                     <br><br>
+
+                 {% endif %}
                  {% if post.image %}
                     <p><img src="{{ post.image.url }}" ></p>
                  {% endif %}
@@ -62,6 +69,10 @@
 
     <br><br><br><p>No comments here yet :(</p>
 {% endfor %}
+
+
                 </div>
+
+
 
 {% endblock %}
