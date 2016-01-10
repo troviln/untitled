@@ -19,7 +19,8 @@ def post_list(request, page_number=1):
 def post_detail(request, pk):
 
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    form = CommentForm
+    return render(request, 'blog/post_detail.html', {'post': post, 'form': form})
 
 
 
@@ -145,10 +146,9 @@ def add_comment_to_post(request, pk):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return redirect('blog.views.post_detail', pk=post.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'blog/add_comment_to_post.html', {'form': form})
+    return redirect('blog.views.post_detail', pk=post.pk)
+
+
 
 
 

@@ -49,7 +49,8 @@
                   <br>
                   <hr>
 
-                  <a class="btn btn-default" href="{% url "add_comment_to_post" pk=post.pk %}">Add comment</a>
+
+
 
     {% for comment in post.comments.all %}
     {% if user.is_authenticated and perms.blog.change_change or comment.approved_comment %}
@@ -70,6 +71,15 @@
     <br><br><br><p>No comments here yet :(</p>
 {% endfor %}
 
+
+                <br><hr>
+                <div class="add_comment ">
+                 <form action="/post/{{ post.id }}/comment/" method="post" class="post-form">
+                     {% csrf_token %}
+                     {{ form.as_p }}
+                     <input type="submit" class="btn-primary" value="Add comments">
+                 </form>
+                 </div>
 
                 </div>
 
