@@ -2,9 +2,10 @@
 
 {% block content %}
     <h1>New post</h1>
-    <form action="" method="POST" enctype="multipart/form-data" class="post-form" >
+    <form  enctype="multipart/form-data" action="" method="post" id="post_form" novalidate  class="post-form" >
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Save" class="save btn btn-defaultt" name="_save" />
+        <button type="submit" class="save btn btn-default">Add post</button>
+    <a class="btn btn-default btn-xs tags" href="{% url 'post_add_tag' %}" >Add tag</a>
     </form>
 {% endblock %}

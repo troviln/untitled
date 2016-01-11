@@ -18,6 +18,9 @@ urlpatterns = [
     url(r'^page/(?P<page_number>\d+)/$', views.post_list, name='post_list'),
     url(r'^tag_search/(?P<tag>\w+)/$', views.post_tag_search, name='post_tag_search'),
     url(r'^new/tag/$', views.new_tag, name='post_add_tag'),
+    url(r'^add/message/$', views.add_message_to_chat, name='add_message_to_chat'),
+
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,8 @@
 
 from django.shortcuts import render, get_object_or_404,redirect
 from django.utils import timezone
-from .models import Post, Comment ,Tag
-from .forms import PostForm, CommentForm ,TagForm
+from .models import Post, Comment, Tag, Chat
+from .forms import PostForm, CommentForm, TagForm, ChatForm
 from django.contrib.auth.decorators import login_required,permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
@@ -12,8 +12,12 @@ from django.core.paginator import Paginator
 def post_list(request, page_number=1):
 
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    current_page = Paginator(posts,5)
-    return render(request, 'blog/post_list.html', {'post': current_page.page(page_number)})
+    current_page = Paginator(posts, 5)
+    chat_block = Chat.objects.all
+    chat_form = ChatForm
+
+    return render(request, 'blog/post_list.html', {'post': current_page.page(page_number),
+                                                   'chat_block': chat_block, 'chat_form': chat_form})
 
 
 def post_detail(request, pk):
@@ -102,10 +106,11 @@ def new_tag(request):
     if request.method == "POST":
          form_tag = TagForm(request.POST)
          if form_tag.is_valid():
+             #post = form_tag.exist_tag
              post = form_tag.save(commit=False)
              post.save()
              form_tag.save_m2m()
-             return redirect('/')
+             return redirect(request.GET.get('next', '/'))
 
     else:
         form_tag = TagForm()
@@ -136,8 +141,6 @@ def post_change(request, pk):
 
 
 
-
-
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -148,7 +151,17 @@ def add_comment_to_post(request, pk):
             comment.save()
     return redirect('blog.views.post_detail', pk=post.pk)
 
+@login_required
+def add_message_to_chat(request):
 
+    if request.method == "POST":
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.author = request.user
+            message.created_date = timezone.now()
+            message.save()
+    return redirect('/')
 
 
 
@@ -167,3 +180,10 @@ def comment_remove(request, pk):
     post_pk = comment.post.pk
     comment.delete()
     return redirect('blog.views.post_detail', pk=post_pk)
+
+
+def chat(request):
+
+    chat_block = get_object_or_404(Chat,)
+    chat_form = ChatForm
+    return render(request, 'blog/post_list.html', {'post': chat_block, 'chat_form': chat_form})

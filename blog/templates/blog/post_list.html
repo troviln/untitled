@@ -60,3 +60,23 @@
         </div>
     </div>
 {% endblock %}
+
+{% block pluscontent %}
+
+ <div class="chat">
+ Chat<hr>
+
+  {% for message in chat_block %}
+      <p>{{ message.author }}:&nbsp{{ message }}</p>
+  {% endfor %}
+
+   <hr>
+   <form action="/add/message/" method="post" class="post-form">
+         {% csrf_token %}
+         {{ chat_form.as_p }}
+         <input type="submit" class="btn-primary" value="Send">
+   </form>
+
+    </div>
+
+{% endblock %}

@@ -31,6 +31,14 @@
 
 }
 
+.chat {
+    background-color: rgba(0, 0, 0, 0.15);
+    margin-top: 70px;
+    padding: 5px 5px 5px 5px;
+}
+
+
+
 .reg {
 
     width: 30%;

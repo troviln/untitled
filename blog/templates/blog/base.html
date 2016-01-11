@@ -27,12 +27,20 @@
     </div>
     <div class="content container">
         <div class="row">
-            <div class="col-md-14 col-md-12">
+            <div class="col-xs-12 col-md-8 ">
 
             {% block content %}
             {% endblock %}
 
             </div>
+
+            <div class="col-xs-6 col-md-3 col-md-offset-1">
+
+            {% block pluscontent %}
+            {% endblock %}
+
+            </div>
+
         </div>
     </div>
 </body>
