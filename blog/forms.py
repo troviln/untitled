@@ -27,3 +27,9 @@ class ChatForm(forms.ModelForm):
     class Meta:
         model = Chat
         fields = ('text',)
+
+        widgets = {
+
+                'text': forms.Textarea(
+                    attrs={'id': 'post-text', 'rows': 2,  'required': True, 'placeholder': 'Say something...'}
+                ),}

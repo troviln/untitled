@@ -3,6 +3,7 @@
 {% load embed_video_tags %}
 {% block content %}
 
+
             {% for post in post %}
                 <div class="post">
                     <div class="date">
@@ -63,20 +64,43 @@
 
 {% block pluscontent %}
 
- <div class="chat">
- Chat<hr>
+<div class="chat">
+    <script src="{% static 'scripts/2main.js' %}"></script>
+    <script src="{% static 'scripts/moment.min.js'%}"></script>
 
-  {% for message in chat_block %}
-      <p>{{ message.author }}:&nbsp{{ message }}</p>
-  {% endfor %}
 
-   <hr>
-   <form action="/add/message/" method="post" class="post-form">
-         {% csrf_token %}
-         {{ chat_form.as_p }}
-         <input type="submit" class="btn-primary" value="Send">
-   </form>
+     Chat<hr>
+      <div class="chat_text">
+      {% if chat_block %}
 
-    </div>
+      <div id="talk">
+            {% for message in chat_block %}
+                <p id='post-{{message.pk}}'>
+                    <strong>{{ message.text }}</strong> -
+                    <em>{{ message.author }}</em> -
+                    <span>{{ message.created_date }}</span> -
+                    <a id='delete-post-{{message.id}}'>delete me</a>
+                </p>
+            {% endfor %}
+        </div>
+      </div>
+     {% endif %}
 
+       <hr>
+
+
+        <form method="POST" id="post-form" class="post-form">
+            {% csrf_token %}
+            <div  id="the_post">
+                {{ chat_form.text }}
+            </div>
+            <div id="results"></div>
+            <input type="submit" value="Post" >
+        </form>
+
+
+
+
+
+</div>
 {% endblock %}

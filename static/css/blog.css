@@ -35,7 +35,20 @@
     background-color: rgba(0, 0, 0, 0.15);
     margin-top: 70px;
     padding: 5px 5px 5px 5px;
+
+
 }
+.chat_text {
+    overflow: auto; /* used for scrolling */
+    width: 100%;
+    height: 200px;
+    border: 1px solid rgba(1, 1, 1, 0.09);
+    -moz-border-radius: 5px;
+
+}
+
+
+
 
 
 

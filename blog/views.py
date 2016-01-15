@@ -6,7 +6,9 @@ from .forms import PostForm, CommentForm, TagForm, ChatForm
 from django.contrib.auth.decorators import login_required,permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import Http404
+from django.http import HttpResponse, QueryDict
 from django.core.paginator import Paginator
+import json
 
 
 def post_list(request, page_number=1):
@@ -35,7 +37,10 @@ def post_tag_search(request, tag, page_number=1):
     tag_id = tag_tag.id
     posts = Post.objects.filter(tags=tag_id, published_date__lte=timezone.now()).order_by('-published_date')
     current_page = Paginator(posts,5)
-    return render(request, 'blog/post_list.html', {'post': current_page.page(page_number)})
+    chat_block = Chat.objects.all
+    chat_form = ChatForm
+    return render(request, 'blog/post_list.html', {'post': current_page.page(page_number),
+                                                   'chat_block': chat_block, 'chat_form': chat_form})
 
 
 @login_required
@@ -151,19 +156,58 @@ def add_comment_to_post(request, pk):
             comment.save()
     return redirect('blog.views.post_detail', pk=post.pk)
 
-@login_required
-def add_message_to_chat(request):
-
-    if request.method == "POST":
-        form = ChatForm(request.POST)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.author = request.user
-            message.created_date = timezone.now()
-            message.save()
-    return redirect('/')
 
 
+#----------------------chat----------------------------
+
+
+
+def add_message_chat(request):
+
+    if request.method == 'POST':
+        post_text = request.POST.get('the_post')
+        response_data = {}
+
+        post = Chat(text=post_text, author=request.user)
+        post.save()
+
+        response_data['result'] = 'Create post successful!'
+        response_data['postpk'] = post.pk
+        response_data['text'] = post.text
+        response_data['created_date'] = post.created_date.strftime('%B %d, %Y %I:%M %p')
+        response_data['author'] = post.author.username
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+def delete_message_chat(request):
+    if request.method == 'DELETE':
+
+        post = Chat.objects.get(pk=int(QueryDict(request.body).get('postpk')))
+
+        post.delete()
+
+        response_data = {}
+        response_data['msg'] = 'Post was deleted.'
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+
+#----------------------endchat----------------------------
 
 @login_required
 @permission_required('blog.change_comment', login_url='/blog/')

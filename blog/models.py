@@ -53,8 +53,9 @@ class Comment(models.Model):
 
 class Chat(models.Model):
     author = models.ForeignKey('auth.User')
-    text = models.CharField(verbose_name='message', max_length=300)
+    text = models.TextField(verbose_name='message', max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
+
 
     def __str__(self):
         return self.text
