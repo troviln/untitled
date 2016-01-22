@@ -9,17 +9,20 @@ from django.http.response import Http404
 from django.http import HttpResponse, QueryDict
 from django.core.paginator import Paginator
 import json
+from rest_framework import generics
+from .serializers import ChatSerializer
+from django.contrib.auth import authenticate, login
 
 
 def post_list(request, page_number=1):
 
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     current_page = Paginator(posts, 5)
-    chat_block = Chat.objects.all
+
     chat_form = ChatForm
 
     return render(request, 'blog/post_list.html', {'post': current_page.page(page_number),
-                                                   'chat_block': chat_block, 'chat_form': chat_form})
+                                                   'chat_form': chat_form})
 
 
 def post_detail(request, pk):
@@ -160,8 +163,16 @@ def add_comment_to_post(request, pk):
 
 #----------------------chat----------------------------
 
+class ChatCollection(generics.ListCreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
+
+class ChatMember(generics.RetrieveDestroyAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
 
 
+'''
 def add_message_chat(request):
 
     if request.method == 'POST':
@@ -174,7 +185,7 @@ def add_message_chat(request):
         response_data['result'] = 'Create post successful!'
         response_data['postpk'] = post.pk
         response_data['text'] = post.text
-        response_data['created_date'] = post.created_date.strftime('%B %d, %Y %I:%M %p')
+        response_data['created_date'] = post.created_date.strftime('%d %B, %Y %I:%M %p')
         response_data['author'] = post.author.username
 
         return HttpResponse(
@@ -206,7 +217,7 @@ def delete_message_chat(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
-
+'''
 #----------------------endchat----------------------------
 
 @login_required

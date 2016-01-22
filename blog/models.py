@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.db import models
 from embed_video.fields import EmbedVideoField
+from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
@@ -52,10 +53,13 @@ class Comment(models.Model):
 
 
 class Chat(models.Model):
-    author = models.ForeignKey('auth.User')
-    text = models.TextField(verbose_name='message', max_length=200)
-    created_date = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User)
+    text = models.TextField(verbose_name='message', max_length=300)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['created']
 
     def __str__(self):
-        return self.text
+        return self.text+' - '+self.author.username

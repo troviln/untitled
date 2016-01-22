@@ -62,33 +62,23 @@
     </div>
 {% endblock %}
 
+
+
 {% block pluscontent %}
 
 <div class="chat">
     <script src="{% static 'scripts/2main.js' %}"></script>
     <script src="{% static 'scripts/moment.min.js'%}"></script>
 
+     <p>Chat</p><hr>
+      <div class="chat_text" >
+            <ul id="talk">
 
-     Chat<hr>
-      <div class="chat_text">
-      {% if chat_block %}
-
-      <div id="talk">
-            {% for message in chat_block %}
-                <p id='post-{{message.pk}}'>
-                    <strong>{{ message.text }}</strong> -
-                    <em>{{ message.author }}</em> -
-                    <span>{{ message.created_date }}</span> -
-                    <a id='delete-post-{{message.id}}'>delete me</a>
-                </p>
-            {% endfor %}
-        </div>
+            </ul>
       </div>
-     {% endif %}
 
        <hr>
-
-
+       <h4>Hi, <span id="user">{{request.user.username}}</span></h4>
         <form method="POST" id="post-form" class="post-form">
             {% csrf_token %}
             <div  id="the_post">
@@ -97,9 +87,6 @@
             <div id="results"></div>
             <input type="submit" value="Post" >
         </form>
-
-
-
 
 
 </div>

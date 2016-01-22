@@ -42,10 +42,14 @@ INSTALLED_APPS = (
     'registration',
     'embed_video',
     'blog',
+    'rest_framework',
+
 
 
 
 )
+
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
